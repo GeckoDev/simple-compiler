@@ -1,16 +1,20 @@
 grammar Simple;
 
-prog: ( stat? NEWLINE )*
-    ;
+/*------------------------------------------------------------------
+ * PARSER RULES
+ *------------------------------------------------------------------*/
 
-stat:	WRITE ID		#write
-	| ID '=' INT		#assign
-	| READ ID   		#read
-   ;
+prog: ( stat? NEWLINE )* ;
 
-value: ID
-       | INT
-   ;
+stat:
+        WRITE ID		#write
+	|   ID '=' INT		#assign
+	|   READ ID   		#read
+;
+
+/*------------------------------------------------------------------
+ * LEXER RULES
+ *------------------------------------------------------------------*/
 
 WRITE:	'write'
    ;
@@ -18,8 +22,6 @@ WRITE:	'write'
 READ:	'read'
    ;
 
-STRING :  '"' ( ~('\\'|'"') )* '"'
-    ;
 ID:   ('a'..'z'|'A'..'Z')+
    ;
 
@@ -29,5 +31,6 @@ INT:   '0'..'9'+
 NEWLINE:	'\r'? '\n'
     ;
 
-WS:   (' '|'\t')+ { skip(); }
-    ;
+WS: ( [ \t\r\n]) -> skip ;
+
+COMMENT : '#' ~[\r\n]* NEWLINE? -> skip ;
