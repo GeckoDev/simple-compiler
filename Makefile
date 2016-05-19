@@ -1,17 +1,18 @@
 ANTLR=/usr/local/lib/antlr-4.5-complete.jar
 TestFilesDir=TestFiles
+TestFileName=test
 
 all: generate_ir generate_bytecode test
 
 generate_ir:
-	java -cp $(ANTLR):out/production/CompilerGenerator/ Main.Main $(TestFilesDir)/test.x > $(TestFilesDir)/test.ll
+	java -cp $(ANTLR):out/production/CompilerGenerator/ Main.Main $(TestFilesDir)/$(TestFileName).x > $(TestFilesDir)/$(TestFileName).ll
 
 generate_bytecode:
-	llvm-as $(TestFilesDir)/test.ll
+	llvm-as $(TestFilesDir)/$(TestFileName).ll
 
 test:
-	lli $(TestFilesDir)/test.bc
+	lli $(TestFilesDir)/$(TestFileName).bc
 
 clean:
-	rm $(TestFilesDir)/test.ll
-	rm $(TestFilesDir)/*.class
+	rm $(TestFilesDir)/*.ll
+	rm $(TestFilesDir)/*.bc
