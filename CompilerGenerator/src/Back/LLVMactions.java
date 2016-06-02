@@ -27,13 +27,20 @@ public class LLVMactions extends SimpleBaseListener {
     public void exitAssign(SimpleParser.AssignContext ctx) {
         String ID = ctx.ID().getText();
         Value v = stack.pop();
-        variables.put(ID, v.type);
+        if(!variables.containsKey(ID))
+        {
+            variables.put(ID, v.type);
+            if (v.type == VarType.INT) {
+                LLVMGenerator.declare_i32(ID);
+            }
+            if (v.type == VarType.REAL) {
+                LLVMGenerator.declare_double(ID);
+            }
+        }
         if (v.type == VarType.INT) {
-            LLVMGenerator.declare_i32(ID);
             LLVMGenerator.assign_i32(ID, v.value);
         }
         if (v.type == VarType.REAL) {
-            LLVMGenerator.declare_double(ID);
             LLVMGenerator.assign_double(ID, v.value);
         }
     }
