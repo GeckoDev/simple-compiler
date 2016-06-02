@@ -2,11 +2,13 @@ package Main; /**
  * Created by aleksander on 19.05.16.
  */
 
-import Front.*;
-import Back.*;
-
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
+import Back.LLVMactions;
+import Front.SimpleLexer;
+import Front.SimpleParser;
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class Main {
     public static void main(String[] args) throws Exception {

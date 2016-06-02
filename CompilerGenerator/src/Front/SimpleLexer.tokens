@@ -3,9 +3,11 @@ WRITE=2
 READ=3
 ID=4
 INT=5
-NEWLINE=6
-WS=7
-COMMENT=8
+ADD=6
+NEWLINE=7
+WS=8
+COMMENT=9
 '='=1
 'write'=2
 'read'=3
+'+'=6

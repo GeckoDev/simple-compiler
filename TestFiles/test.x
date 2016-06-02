@@ -1,11 +1,8 @@
-x = 3
-# comment
-# comment_2 write x ready y
-write x
-read y
+read x
+
 # read c comment_3
 # dayum
-write y
-# last one
 
-
+read y
+z = x + y+y +y
+write z
