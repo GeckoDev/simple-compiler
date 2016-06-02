@@ -1,9 +1,6 @@
-# read x - will not work beacuse it's not declared yet
-x = 0.05
-write x
-# read c comment_3
-# dayum
+x = 1.6
+print x
+y = 10
+z = 4.0 / 3.0
+print z
 
-#read y
-#z = x + y+y +y + 33
-#write z

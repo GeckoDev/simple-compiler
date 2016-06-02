@@ -6,32 +6,44 @@ grammar Simple;
 
 prog: ( stat? NEWLINE )* ;
 
-stat:
-        WRITE ID		#write
-	|   ID '=' expr		#assign
-	|   READ ID   		#read
+stat:	 ID '=' expr0		#assign
+	| PRINT ID   		    #print
+	| READ ID               #read
 ;
 
-expr:
-    value ADD expr      #add
-    | value             #single
+expr0:  expr1			    #single0
+      | expr1 ADD expr1		#add
+      | expr1 SUB expr1     #sub
 ;
 
-value:
-    ID
-    | INT
-    | REAL
+expr1:  expr2			    #single1
+      | expr2 MULT expr2	#mult
+      | expr2 DIV expr2     #div
+;
+
+expr2:   ID                 #exid
+       | INT			    #int
+       | REAL			    #real
+       | TOINT expr2		#toint
+       | TOREAL expr2		#toreal
+       | '(' expr0 ')'		#par
 ;
 
 /*------------------------------------------------------------------
  * LEXER RULES
  *------------------------------------------------------------------*/
 
-WRITE:	'write'
-   ;
+PRINT:	'print'
+    ;
 
 READ:	'read'
    ;
+
+TOINT: '(int)'
+    ;
+
+TOREAL: '(real)'
+    ;
 
 ID:   ('a'..'z'|'A'..'Z')+
    ;
@@ -39,11 +51,13 @@ ID:   ('a'..'z'|'A'..'Z')+
 REAL: '0'..'9'+'.''0'..'9'+
     ;
 
-INT:   '0'..'9'+
+INT: '0'..'9'+
     ;
 
-ADD:    '+'
-    ;
+ADD: '+' ;
+MULT: '*' ;
+SUB: '-' ;
+DIV: '/' ;
 
 NEWLINE:	'\r'? '\n'
     ;
